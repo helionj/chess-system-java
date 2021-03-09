@@ -1,6 +1,5 @@
 package com.helion.application;
 
-import com.helion.boardgame.Board;
 import com.helion.chess.ChessMatch;
 
 public class Program {
