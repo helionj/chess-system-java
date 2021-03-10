@@ -1,7 +1,9 @@
 package com.helion.application;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.helion.chess.ChessException;
 import com.helion.chess.ChessMatch;
 import com.helion.chess.ChessPiece;
 import com.helion.chess.ChessPosition;
@@ -15,17 +17,29 @@ public class Program {
 		ChessMatch chessMatch = new ChessMatch();
 		
 		while(true) {
-			UI.printBoard(chessMatch.getPieces());
+			try {
+				UI.clearScreen();
+				UI.printBoard(chessMatch.getPieces());
+				
+				System.out.println();
+				System.out.print("Source: ");
+				ChessPosition source = UI.readChessPosition(sc);
+				
+				System.out.println();
+				System.out.print("Traget: ");
+				ChessPosition target = UI.readChessPosition(sc);
+				
+				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+			}
+			catch(ChessException e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+			}
+			catch(InputMismatchException e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+			}
 			
-			System.out.println();
-			System.out.print("Source: ");
-			ChessPosition source = UI.readChessPosition(sc);
-			
-			System.out.println();
-			System.out.print("Traget: ");
-			ChessPosition target = UI.readChessPosition(sc);
-			
-			ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
 			
 		}
 		
